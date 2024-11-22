@@ -1,3 +1,9 @@
+'use strict';
+
+let funcionarios = [];
+let codigoFuncionarioAtual = null;
+let editando = false;
+
 document.addEventListener("DOMContentLoaded", () => {
     let cpfInput = document.querySelector(".input-cpf");
     let celularInput = document.querySelector(".input-celular");
@@ -23,20 +29,60 @@ document.getElementById("btnLimpar").addEventListener("click", () => {
 })
 
 document.getElementById("btnSalvar").addEventListener("click", (e) => {
-    const funcionario = {
-        codigo: Date.now(),
-        nome: document.getElementById("inputNome").value,
-        cargo: document.getElementById("inputCargo").value,
-        cpf: document.getElementById("inputCpf").value,
-        email: document.getElementById("inputEmail").value,
-        celular: document.getElementById("inputCelular").value,
+
+    if (editando) {
+        let funcionarioEdit = funcionarios.find(funcionario => funcionario.codigo == codigoFuncionarioAtual);
+        
+        funcionarioEdit.nome = document.getElementById("inputNome").value;
+        funcionarioEdit.cargo = document.getElementById("inputCargo").value;
+        funcionarioEdit.cpf = document.getElementById("inputCpf").value;
+        funcionarioEdit.email = document.getElementById("inputEmail").value;
+        funcionarioEdit.celular = document.getElementById("inputCelular").value;  
+
+        document.getElementById("listaCardFuncionarios").innerHTML = ``;
+        funcionarios.forEach(funcionario => {
+            const cardFuncionario = card(funcionario);    
+            document.getElementById("listaCardFuncionarios").innerHTML += cardFuncionario;    
+        })
+
+        editando = false;
+    } else {
+        const funcionario = {
+            codigo: Date.now(),
+            nome: document.getElementById("inputNome").value,
+            cargo: document.getElementById("inputCargo").value,
+            cpf: document.getElementById("inputCpf").value,
+            email: document.getElementById("inputEmail").value,
+            celular: document.getElementById("inputCelular").value,
+        }
+    
+        funcionarios.push(funcionario);
+        const cardFuncionario = card(funcionario);
+        document.getElementById("listaCardFuncionarios").innerHTML += cardFuncionario;
     }
 
-    const cardFuncionario = card(funcionario);
-    document.getElementById("listaCardFuncionarios").innerHTML += cardFuncionario;
 
     
 })
+
+function remove(codigo) {
+    funcionarios = funcionarios.filter(funcionario => funcionario.codigo != codigo);
+    let elCard = document.getElementById(`${codigo}`);
+    elCard.remove();
+}
+
+function editar(codigo){
+    codigoFuncionarioAtual = codigo;
+    let funcionarioEdit = funcionarios.find(funcionario => funcionario.codigo == codigo);
+
+    document.getElementById("inputNome").value = funcionarioEdit.nome;
+    document.getElementById("inputCargo").value = funcionarioEdit.cargo;
+    document.getElementById("inputCpf").value = funcionarioEdit.cpf;
+    document.getElementById("inputEmail").value = funcionarioEdit.email;
+    document.getElementById("inputCelular").value = funcionarioEdit.celular;
+
+    editando = true;
+}
 
 function card(funcionario) {
     return `
@@ -52,7 +98,7 @@ function card(funcionario) {
                 <h5>${funcionario.cargo}</h5>
             </div>
             <div class="container-buttons-card">
-                <button class="btn-edit" id="btnEdit" title="Editar Funcionário">
+                <button class="btn-edit" id="btnEdit" title="Editar Funcionário" onclick="editar(${funcionario.codigo})">
                     <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_1_174)">
                         <path d="M17.0803 3.94533L15.0803 5.94533H5.32288V19.9453H19.3229V10.188L21.3229 8.18798V20.9453C21.3229 21.4976 20.8752 21.9453 20.3229 21.9453H4.32288C3.7706 21.9453 3.32288 21.4976 3.32288 20.9453V4.94533C3.32288 4.39305 3.7706 3.94533 4.32288 3.94533H17.0803ZM20.8082 3.04584L22.2224 4.46005L13.03 13.6524L11.6183 13.6549L11.6158 12.2382L20.8082 3.04584Z" fill="white"/>
@@ -64,7 +110,7 @@ function card(funcionario) {
                         </defs>
                         </svg>
                 </button>
-                <button class="btn-remove" id="btnRemove" title="Remover Funcionário">
+                <button class="btn-remove" id="btnRemove" title="Remover Funcionário" onclick="remove(${funcionario.codigo})">
                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.4415 6.45337H22.4764V8.38217H20.4624V20.9194C20.4624 21.452 20.0116 21.8838 19.4555 21.8838H5.35773C4.8016 21.8838 4.35075 21.452 4.35075 20.9194V8.38217H2.33679V6.45337H7.3717V3.56017C7.3717 3.02755 7.82254 2.59577 8.37868 2.59577H16.4345C16.9907 2.59577 17.4415 3.02755 17.4415 3.56017V6.45337ZM18.4485 8.38217H6.36472V19.955H18.4485V8.38217ZM9.38566 11.2754H11.3996V17.0618H9.38566V11.2754ZM13.4136 11.2754H15.4275V17.0618H13.4136V11.2754ZM9.38566 4.52457V6.45337H15.4275V4.52457H9.38566Z" fill="white"/>
                     </svg>    

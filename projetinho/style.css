@@ -187,6 +187,7 @@ aside {
     border-top-left-radius: 12px;
     padding: 2rem;
     padding-left: 4rem;
+    overflow: auto;
 }
 
 .btn-list {
@@ -205,6 +206,7 @@ aside {
 
 .container-card-funcionario {
     margin-top: 1rem;
+    gap: 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -257,7 +259,6 @@ aside {
     display: flex;
     flex-direction: column;
     width: 10%;
-    height: 100%;
 }
 
 .container-buttons-card button {

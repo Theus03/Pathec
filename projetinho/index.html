@@ -6,8 +6,11 @@
     <link rel="stylesheet" href="style.css">
     <title>pathec</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+    <script src="../cleave-phone-type-formatter.br.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <header>
@@ -33,22 +36,26 @@
                 <form action="">
                     <div class="group-input">
                         <label for="">Nome</label>
-                        <input type="text" placeholder="Digite aqui seu nome">
+                        <input type="text" placeholder="Digite aqui seu nome" required>
                     </div>
                     <div class="group-input">
                         <label for="">Cargo</label>
-                        <input type="text" placeholder="Digite aqui seu cargo">
+                        <input type="text" placeholder="Digite aqui seu cargo" required>
                     </div>
                     <div class="group-input">
                         <label for="">CPF</label>
-                        <input type="text" placeholder="Digite aqui seu CPF">
+                        <input type="text" class="input-cpf" placeholder="Digite aqui seu CPF" id="cpfInput" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="">E-mail</label>
+                        <input type="email" placeholder="Digite aqui seu e-mail" required>
                     </div>
                     <div class="group-input">
                         <label for="">Celular</label>
-                        <input type="text" placeholder="Digite aqui seu celular">
+                        <input type="text" class="input-celular" placeholder="Digite aqui seu celular" id="celularInput" required>
                     </div>
                     <div class="group-buttons">
-                        <button class="btn btn-form" id="btnLimpar">Limpar</button>
+                        <button type="button" class="btn btn-form" id="btnLimpar">Limpar</button>
                         <button class="btn btn-form" id="btnSalvar">Salvar</button>
                     </div>
                 </form>
@@ -70,7 +77,7 @@
                         <h5>Frontend Developer</h5>
                     </div>
                     <div class="container-buttons-card">
-                        <button class="btn-edit" id="btnEdit">
+                        <button class="btn-edit" id="btnEdit" title="Editar Funcionário">
                             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_1_174)">
                                 <path d="M17.0803 3.94533L15.0803 5.94533H5.32288V19.9453H19.3229V10.188L21.3229 8.18798V20.9453C21.3229 21.4976 20.8752 21.9453 20.3229 21.9453H4.32288C3.7706 21.9453 3.32288 21.4976 3.32288 20.9453V4.94533C3.32288 4.39305 3.7706 3.94533 4.32288 3.94533H17.0803ZM20.8082 3.04584L22.2224 4.46005L13.03 13.6524L11.6183 13.6549L11.6158 12.2382L20.8082 3.04584Z" fill="white"/>
@@ -82,7 +89,7 @@
                                 </defs>
                                 </svg>
                         </button>
-                        <button class="btn-remove" id="btnRemove">
+                        <button class="btn-remove" id="btnRemove" title="Remover Funcionário">
                             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.4415 6.45337H22.4764V8.38217H20.4624V20.9194C20.4624 21.452 20.0116 21.8838 19.4555 21.8838H5.35773C4.8016 21.8838 4.35075 21.452 4.35075 20.9194V8.38217H2.33679V6.45337H7.3717V3.56017C7.3717 3.02755 7.82254 2.59577 8.37868 2.59577H16.4345C16.9907 2.59577 17.4415 3.02755 17.4415 3.56017V6.45337ZM18.4485 8.38217H6.36472V19.955H18.4485V8.38217ZM9.38566 11.2754H11.3996V17.0618H9.38566V11.2754ZM13.4136 11.2754H15.4275V17.0618H13.4136V11.2754ZM9.38566 4.52457V6.45337H15.4275V4.52457H9.38566Z" fill="white"/>
                             </svg>    
@@ -92,6 +99,5 @@
             </div>
         </aside>
     </main>
-
 </body>
 </html>
